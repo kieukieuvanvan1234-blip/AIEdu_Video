@@ -121,7 +121,7 @@ export const Header: React.FC<Props> = ({
             const isActive = activeStage === stage.id;
             const isUnlocked = stage.unlocked;
 
-            const isFailed = !!errorMessage && !isUnlocked;
+            const isFailed = !!errorMessage && errorMessage !== 'null' && errorMessage !== 'undefined' && !isUnlocked;
 
             return (
               <button
@@ -132,7 +132,7 @@ export const Header: React.FC<Props> = ({
                   isActive
                     ? 'bg-indigo-50/80 border-indigo-500/70 shadow-md ring-1 ring-indigo-500/50'
                     : isFailed
-                    ? 'bg-rose-50 border-rose-450 hover:bg-rose-100 text-rose-800'
+                    ? 'bg-rose-50 border-rose-400 hover:bg-rose-100 text-rose-800'
                     : isUnlocked
                     ? 'bg-slate-900/50 border-slate-700 hover:border-slate-600 hover:bg-slate-800/40'
                     : 'bg-slate-950/40 border-slate-800 opacity-40 cursor-not-allowed'
@@ -164,7 +164,7 @@ export const Header: React.FC<Props> = ({
                     )}
                   </div>
                   <div className={`text-xs font-semibold truncate ${
-                    isActive ? 'text-indigo-650' : isFailed ? 'text-rose-700' : 'text-slate-200'
+                    isActive ? 'text-indigo-600' : isFailed ? 'text-rose-700' : 'text-slate-200'
                   }`}>
                     {isFailed ? (
                       <span className="text-rose-500 font-bold">Đã dừng do lỗi</span>
