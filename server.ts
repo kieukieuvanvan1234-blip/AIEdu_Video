@@ -188,7 +188,7 @@ Giai đoạn 3: Kho bài tập dàn giáo (Scaffolding 3 bài tập với độ 
           required: ['ocrData', 'logicSteps', 'pedagogicalPrompt', 'videoScript', 'popupQuiz', 'exercises'],
         },
       },
-    });
+    );
 
     const responseText = response.text || '{}';
     const parsedData = JSON.parse(responseText);
@@ -313,7 +313,7 @@ Nhiệm vụ của bạn:
           required: ['processScore', 'scoreBreakdown', 'errorHeatmap', 'rootCauseAnalysis', 'mentorFeedback', 'remedialRoadmap'],
         },
       },
-    });
+    );
 
     const responseText = response.text || '{}';
     const parsedReport = JSON.parse(responseText);
