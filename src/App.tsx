@@ -187,14 +187,14 @@ export default function App() {
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-8">
         {/* Error Alert Banner */}
         {errorMessage && (
-          <div className="p-4 bg-rose-950/80 border border-rose-500/50 rounded-2xl text-rose-200 text-xs font-medium flex items-center justify-between gap-3 shadow-lg">
+          <div className="p-4 bg-rose-50 border border-rose-200 rounded-2xl text-rose-800 text-xs font-medium flex items-center justify-between gap-3 shadow-lg">
             <div className="flex items-center gap-2">
-              <AlertCircle className="w-5 h-5 text-rose-400 shrink-0" />
+              <AlertCircle className="w-5 h-5 text-rose-500 shrink-0" />
               <span>{errorMessage}</span>
             </div>
             <button
               onClick={() => setErrorMessage(null)}
-              className="px-2.5 py-1 bg-rose-900/80 hover:bg-rose-800 rounded-lg text-white font-bold"
+              className="px-2.5 py-1 bg-rose-100 hover:bg-rose-200 rounded-lg text-rose-800 font-bold transition-colors cursor-pointer"
             >
               Đóng
             </button>
