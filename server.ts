@@ -30,7 +30,9 @@ function getAIClient(userKey?: string) {
 const MODEL_FALLBACK_LIST = [
   'gemini-3-flash-preview',
   'gemini-3-pro-preview',
-  'gemini-2.5-flash'
+  'gemini-2.5-flash',
+  'gemini-2.5-pro',
+  'gemini-2.0-flash'
 ];
 
 // Helper to generate content with fallback list
@@ -87,10 +89,15 @@ app.post('/api/analyze-problem', async (req, res) => {
     const contents: any[] = [];
     
     if (imageBase64) {
-      const base64Clean = imageBase64.replace(/^data:image\/\w+;base64,/, '');
+      let mimeType = 'image/png';
+      const mimeMatch = imageBase64.match(/^data:([^;]+);base64,/);
+      if (mimeMatch) {
+        mimeType = mimeMatch[1];
+      }
+      const base64Clean = imageBase64.replace(/^data:[^;]+;base64,/, '');
       contents.push({
         inlineData: {
-          mimeType: 'image/png',
+          mimeType,
           data: base64Clean,
         },
       });
@@ -114,7 +121,7 @@ Giai đoạn 3: Kho bài tập dàn giáo (Scaffolding 3 bài tập với độ 
     const response = await generateContentWithFallback(
       aiClient,
       preferredModel,
-      contents.length === 1 ? contents[0].text : { parts: contents },
+      contents,
       {
         systemInstruction: ARCHITECT_SYSTEM_INSTRUCTION,
         responseMimeType: 'application/json',
@@ -212,10 +219,15 @@ app.post('/api/evaluate-scratchpad', async (req, res) => {
     const contents: any[] = [];
 
     if (scratchpadImageBase64) {
-      const base64Clean = scratchpadImageBase64.replace(/^data:image\/\w+;base64,/, '');
+      let mimeType = 'image/png';
+      const mimeMatch = scratchpadImageBase64.match(/^data:([^;]+);base64,/);
+      if (mimeMatch) {
+        mimeType = mimeMatch[1];
+      }
+      const base64Clean = scratchpadImageBase64.replace(/^data:[^;]+;base64,/, '');
       contents.push({
         inlineData: {
-          mimeType: 'image/png',
+          mimeType,
           data: base64Clean,
         },
       });
@@ -249,7 +261,7 @@ Nhiệm vụ của bạn:
     const response = await generateContentWithFallback(
       aiClient,
       preferredModel,
-      contents.length === 1 ? contents[0].text : { parts: contents },
+      contents,
       {
         systemInstruction: ARCHITECT_SYSTEM_INSTRUCTION,
         responseMimeType: 'application/json',
